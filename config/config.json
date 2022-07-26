@@ -1,4 +1,8 @@
 {
+    "output": {
+        "direction": "../output",
+        "file-name": "emails"
+    },
     "domain": ["test.com"],
     "local-part": ["test", "info", "admin"]
 }

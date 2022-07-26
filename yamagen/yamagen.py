@@ -1,7 +1,11 @@
 import os
 from typing import List
 import json
-from config import *
+import csv
+from config import DOMAINS, LOCAL_PARTS, CONFIG_OUTPUT
+
+
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -33,7 +37,16 @@ class Outputter:
         pass
 
     def ToCSV(self):
-        pass
+        # mode). It can be None, '', '\n', '\r', and '\r\n'.
+        file_name = CONFIG_OUTPUT['direction'] + '/' + CONFIG_OUTPUT['file-name']+'.csv' 
+        file_to_output = open(file_name,'w',newline='')
+        csv_writer = csv.writer(file_to_output,delimiter=',')
+        csv_writer.writerow(['index','domain','email-address'])
+
+        for index, address in enumerate(self.email_addresses):
+            csv_writer.writerow([index, address.domain, address.get()])
+
+        file_to_output.close()
 
     def Message(self) -> str:
         msg = f"{len(self.email_addresses)} e-mail address"
@@ -42,22 +55,30 @@ class Outputter:
         
         return "Outputter has " + msg + "."
 
-def generator():
-    
-    addresses = []
 
-    for domain in domains:
-        for lp in local_parts:
-            mail = EmailAddress(lp, domain)
-            addresses.append(mail)
+class yamagen:
+    def __init__(self):
+        self.name = ""
+
+    def generator(self):
+        
+        addresses = []
+
+        for domain in DOMAINS:
+            for lp in LOCAL_PARTS:
+                mail = EmailAddress(lp, domain)
+                addresses.append(mail)
+        
+        return addresses
+
     
-    return addresses
 
 if __name__ == '__main__':
     print("main called")
+    yamagen = yamagen()
 
-    addresses = generator()
+    addresses = yamagen.generator()
     out = Outputter(addresses)
-
+    out.ToCSV()
     print(out.JSON())
     print(out.Message())
