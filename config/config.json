@@ -1,0 +1,4 @@
+{
+    "domain": ["test.com"],
+    "local-part": ["test", "info", "admin"]
+}
