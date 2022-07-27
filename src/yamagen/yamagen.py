@@ -2,9 +2,7 @@ import os
 from typing import List
 import json
 import csv
-from config import DOMAINS, LOCAL_PARTS, CONFIG_OUTPUT
-
-
+from src.yamagen.config import DOMAINS, LOCAL_PARTS, CONFIG_OUTPUT
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -71,7 +69,6 @@ class yamagen:
         
         return addresses
 
-    
 
 if __name__ == '__main__':
     print("main called")
